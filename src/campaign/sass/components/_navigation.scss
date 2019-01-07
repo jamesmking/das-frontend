@@ -1,5 +1,3 @@
-
-
 %nav-icon-lines {
   display: block;
   height: 3px;
@@ -7,7 +5,7 @@
   position: absolute;
   border-radius: 2px;
   background: #fff;
-  transition:all 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .navigation__toggle {
@@ -32,6 +30,13 @@
     &:after {
       top: 9px;
     }
+    .header--active & {
+      background: $black;
+      &:after,
+      &:before {
+        background: $black;
+      }
+    }
   }
 
   @include media-query($from: $nav-breakpoint) {
@@ -39,7 +44,7 @@
   }
 
   .js-menu-open &,
-  .js-menu-open .header:hover &{
+  .js-menu-open .header:hover & {
     .navigation__toggle-icon {
       background: rgba(0, 0, 0, 0);
       &:after {
@@ -63,6 +68,7 @@
   text-transform: uppercase;
   display: block;
   padding: 15px 50px 15px 15px;
+  .header--active &,
   .js-menu-open & {
     color: $black;
   }
@@ -80,9 +86,9 @@
   font-size: 1.4em;
   z-index: 10;
   overflow: auto;
-  //transition:all .3s ease;
   letter-spacing: 0.03rem;
   right: -100%;
+  transition: all 0.2s ease;
   @include media-query($from: $nav-breakpoint) {
     right: 0;
     position: static;
@@ -91,16 +97,72 @@
     height: auto;
     background: none;
     border: none;
+    overflow: visible;
+    transition: none;
   }
   .js-menu-open & {
     right: 0;
   }
 }
-
 .navigation__menu {
   padding: 0 0 100px;
   margin: 0;
   list-style: none;
+}
+
+.navigation__list {
+  padding: 0;
+  margin: 0 -20px 20px;
+  list-style: none;
+  border-bottom: 1px solid $border-colour;
+  @include media-query($from: $nav-breakpoint) {
+    border-bottom: none;
+  }
+}
+
+.navigation__ordered-list {
+  padding: 0;
+  margin: 0 -20px 20px;
+  margin: 0;
+  list-style: none;
+  & > li {
+    counter-increment: li;
+    position: relative;
+    &:before {
+      content: counter(li)' - ';
+      width: 1em;
+      height: 1em;
+      font-size: 14px;
+      color: #000;
+      font-family: $font-family;
+      font-weight: $font-weight-bold;
+      white-space: nowrap;
+      position: absolute;
+      top: 17px;
+      left: 0px;
+      .navigation__sub-menu--apprentice & {
+        color: $apprentice;
+      }
+      .navigation__sub-menu--employer & {
+        color: $employer;
+      }
+    }
+    & > a {
+      padding-left: 22px;
+    }
+  }
+}
+
+.navigation__ordered-list--reset-3 {
+  counter-reset: li 3
+}
+
+.navigation__list,
+.navigation__ordered-list {
+  @include media-query($from: $nav-breakpoint-desktop) {
+    float: left;
+    width: 50%;
+ }
 }
 
 .navigation__list-item {
@@ -129,13 +191,14 @@
   }
   @include media-query($from: $nav-breakpoint-desktop) {
     font-size: 14px;
-    padding-left: 15px;
+    padding-left: 25px;
   }
 }
 
 .navigation__list-item--with-button  > .button {
   margin: 0;
   .header:hover &,
+  .header--active &,
   .js-menu-open & {
     background: #000;
     color: #fff;
@@ -148,7 +211,6 @@
     font-size: 14px;
     padding: 10px 30px;
   }
-
 }
 
 .navigation__link--top-level {
@@ -161,16 +223,23 @@
   padding: 15px 20px;
   position: relative;
   @include media-query($from: $nav-breakpoint) {
-    padding: 25px 10px 60px;
+    padding: 25px 20px 60px;
     font-size: 13px;
     color: #fff;
+    .header--active & ,
     .header:hover & {
-      color: $black;
+      color: $grey-3;
     }
   }
   @include media-query($from: $nav-breakpoint-desktop) {
-    padding: 25px 15px 60px;
+    padding: 25px 25px 60px;
     font-size: 14px;
+  }
+}
+
+.navigation__list-item:hover .navigation__link--top-level {
+  @include media-query($from: $nav-breakpoint) {
+    color: $black;
   }
 }
 
@@ -189,7 +258,7 @@
 .navigation__sub-menu {
   background: #efefef;
   margin: 0;
-  padding: 0 0 10px;
+  padding: 10px 0 10px;
   list-style: none;
   display: none;
   @include media-query($from: $nav-breakpoint) {
@@ -199,12 +268,50 @@
     top: 120px;
     padding: 40px 60px;
     flex-wrap: wrap;
-    > li {
-      width: 20%;
-      -webkit-box-sizing: border-box;
-      -moz-box-sizing: border-box;
-      box-sizing: border-box;
-      padding: 0 20px 15px;
+  }
+}
+
+.navigation__sub-menu--employer
+{
+  color: $employer;
+  @include media-query($from: $nav-breakpoint) {
+    border-top: 10px solid $employer;
+  }
+}
+
+.navigation__sub-menu--apprentice
+{
+  @include media-query($from: $nav-breakpoint) {
+    border-top: 10px solid $apprentice;
+    color: $apprentice;
+  }
+}
+
+.navigation_sub-heading {
+  margin: 5px 0;
+  @include media-query($from: $nav-breakpoint) {
+    margin: 0 0 10px;
+  }
+  & > .highlight {
+    @include media-query($from: $nav-breakpoint) {
+      .navigation__sub-menu--apprentice & {
+        color: $apprentice;
+      }
+      .navigation__sub-menu--employer & {
+        color: $employer;
+      }
+    }
+    :after {
+      content: '...';
+      @include media-query($from: $nav-breakpoint) {
+        content: '';
+      }
+    }
+  }
+  & > .secondary {
+    display: none;
+    @include media-query($from: $nav-breakpoint) {
+      display: inline;
     }
   }
 }
@@ -254,15 +361,19 @@
       top: -4px;
       right: 4px;
     }
+    .header--active &,
     .header:hover & {
+      background: $grey-3;
+      &:before {
+        background: $grey-3;
+      }
+    }
+    .navigation__link--top-level:hover & {
       background: $black;
       &:before {
         background: $black;
       }
     }
-  }
-  @include media-query($from: $nav-breakpoint-desktop) {
-
   }
 }
 
@@ -272,18 +383,20 @@
   }
 }
 
+
+
 .navigation__link {
-  @include font($size: 24, $weight: light);
+  font-family: $font-family;
+  font-size: 18px;
+  font-weight: 300;
   color: $grey-5;
   text-decoration: none;
   display: block;
   padding: 15px 20px;
   @include media-query($from: $nav-breakpoint) {
-    padding: 0;
-    @include font($size: 14, $weight: bold);
-    text-transform: uppercase;
-    color: $black;
-    box-sizing: border-box;
+    text-decoration: underline;
+    line-height: 1.3;
+    padding: 10px 20px;
   }
 }
 
@@ -294,5 +407,21 @@
     text-transform: none;
     color: $grey-3;
     font-weight: 300;
+  }
+}
+
+.navigation__link--top-level--apprentice.sub-menu-open {
+  color: $apprentice;
+  .navigation__sub-menu-icon,
+  .navigation__sub-menu-icon:before{
+    background: $apprentice;
+  }
+}
+
+.navigation__link--top-level--employer.sub-menu-open {
+  color: $employer;
+  .navigation__sub-menu-icon,
+  .navigation__sub-menu-icon:before{
+    background: $employer;
   }
 }

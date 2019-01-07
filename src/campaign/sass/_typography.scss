@@ -1,3 +1,7 @@
+html {
+  line-height: 1.25;
+}
+
 // Headings
 
 .heading-xl {
@@ -24,6 +28,12 @@
   color: $heading-colour;
   text-transform: uppercase;
   @include font($size: 19, $weight: bold);
+}
+
+.heading-xs {
+  color: $heading-colour;
+  text-transform: uppercase;
+  @include font($size: 14, $weight: bold);
 }
 
 // Captions
@@ -64,16 +74,15 @@
 // Generic
 
 p {
-  font-family: $font-family;
+  @include typography-common;
   font-weight: $font-weight-light;
   font-size: 21px;
-  color: $text-colour;
+  //color: $text-colour;
 }
 
-// Commented out as this is overriding colours set on child block elements
-// #main-content a {
-//   color: $apprentice;
-// }
+.lead-paragraph {
+  font-size: 26px;
+}
 
 .caption-s + .heading-m {
   margin-top: .2em;
@@ -90,4 +99,14 @@ p {
 }
 .hr-employer{
   background-color: $employer;
+}
+
+.text--apprentice{
+  color:$apprentice;
+}
+.text--employer{
+  color: $employer;
+}
+.text-danger{
+  color:$error-colour;
 }

@@ -8,7 +8,7 @@
 }
 
 .sidebar__hero {
-  margin: 0 -80px;
+  margin: 0 -81px 0 -80px;
 }
 
 .sidebar__hero-image {
@@ -45,11 +45,62 @@
     border-width: 0 0 50px 475px;
     border-color: transparent transparent $apprentice-mid;
   }
+  .sidebar--employer & {
+    background: $employer;
+    &:before {
+      border-bottom-color: $employer;
+    }
+    &:after {
+      border-bottom-color: $employer-mid;
+    }
+  }
 }
+
+.sidebar__sub-content {
+  @extend .sidebar__header;
+  margin-top: 120px;
+  padding-bottom:70px;
+  
+  & p{
+    color: #FFFFFF;
+  }
+  &:after {
+    border-color: transparent transparent #FFFFFF !important;
+    border-bottom-color: #FFFFFF;
+  }
+  .button{
+    display: flex;
+      justify-content: center;
+  }
+}
+.sidebar__sub-content--mid{
+  margin-top:165px;
+  &:before {
+    border-color: transparent transparent $employer-mid !important;
+    border-bottom-color: $employer-mid !important;
+  }
+
+  &:after {
+    border-color: transparent transparent #FFFFFF;
+    border-bottom-color: #FFFFFF;
+  }
+  .sidebar--employer & {
+   
+      background-color: $employer-mid;
+    }
+
+
+    & .sidebar__heading{
+      color:$black;
+    }
+
+   
+}
+
 
 .trimmer {
   overflow: hidden;
-  margin-top: -176px;
+  margin-top: -172px;
   padding-top: 50px;
 }
 
@@ -66,6 +117,9 @@
   padding: 30px;
   background: $apprentice-mid;
   position: relative;
+  .sidebar--employer & {
+    background: $employer-mid;
+  }
 }
 
 $timeline-width: 2px;
@@ -94,6 +148,7 @@ $timeline-width: 2px;
     margin: 0;
     left: $timeline-width * -1;
     border-left: $timeline-width solid transparent;
+
     &:before {
       content: counter(li);
       width: 1em;
@@ -113,13 +168,18 @@ $timeline-width: 2px;
       position: absolute;
       top: 0;
       left: -19px;
+      .sidebar--employer & {
+        color: $employer;
+      }
     }
 
     &.sidebar-nav__section--active {
-      border-left-color: $apprentice;
       &:before {
         background-color: $apprentice;
         color: #fff;
+        .sidebar--employer & {
+          background-color: $employer;
+        }
       }
     }
     & > a {
@@ -145,8 +205,7 @@ $timeline-width: 2px;
           left: -39px;
           top: .03em;
           line-height: .5em;
-          color: $apprentice;
-          border: 3px solid $apprentice-light;
+          border: 3px solid $apprentice-mid;
           background: $apprentice;
           width: 10px;
           height: 10px;
@@ -154,9 +213,14 @@ $timeline-width: 2px;
           -webkit-border-radius: 50%;
           -moz-border-radius: 50%;
           border-radius: 50%;
+          .sidebar--employer & {
+            background: $employer;
+            border-color: $employer-mid;
+          }
         }
         & > a {
           color: $apprentice;
+
         }
       }
     }
